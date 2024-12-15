@@ -7,6 +7,7 @@ import { Fragment } from "react"
 
 import { HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { Menu as MenuIcon } from "lucide-react"
 import CountrySelect from "../country-select"
 
 const SideMenuItems = {
@@ -31,7 +32,7 @@ const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
                   data-testid="nav-menu-button"
                   className="relative flex items-center h-full transition-all duration-200 ease-out focus:outline-none hover:text-ui-fg-base"
                 >
-                  Menu
+                  <MenuIcon size={20} />
                 </Popover.Button>
               </div>
 

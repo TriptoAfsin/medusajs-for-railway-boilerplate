@@ -5,6 +5,10 @@ import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
+import { Search, ShoppingCart, User } from "lucide-react"
+import Image from "next/image"
+
+const LOGO = "/logo.png"
 
 export default async function Nav() {
   const regions = await listRegions().then((regions: StoreRegion[]) => regions)
@@ -25,7 +29,7 @@ export default async function Nav() {
               className="uppercase txt-compact-xlarge-plus hover:text-ui-fg-base"
               data-testid="nav-store-link"
             >
-              Evercare
+              <Image src={LOGO} alt="Evercare" width={80} height={80} />
             </LocalizedClientLink>
           </div>
 
@@ -38,7 +42,7 @@ export default async function Nav() {
                   scroll={false}
                   data-testid="nav-search-link"
                 >
-                  Search
+                  <Search size={20} />
                 </LocalizedClientLink>
               )}
               <LocalizedClientLink
@@ -46,7 +50,7 @@ export default async function Nav() {
                 href="/account"
                 data-testid="nav-account-link"
               >
-                Account
+                <User size={20} />
               </LocalizedClientLink>
             </div>
             <Suspense
@@ -56,6 +60,7 @@ export default async function Nav() {
                   href="/cart"
                   data-testid="nav-cart-link"
                 >
+                  <ShoppingCart size={20} />
                   Cart (0)
                 </LocalizedClientLink>
               }
