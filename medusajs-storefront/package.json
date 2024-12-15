@@ -9,8 +9,8 @@
   ],
   "scripts": {
     "dev": "next dev --turbopack -p 8000",
-    "build": "next build",
-    "start": "next start -p 8000",
+    "build": "npm run wait && next build",
+    "wait": "node script/awaitBackendReady.js",
     "lint": "next lint",
     "analyze": "ANALYZE=true next build"
   },
