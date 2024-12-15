@@ -1,6 +1,8 @@
-import { defineConfig, loadEnv } from "@medusajs/framework/utils";
+import { defineConfig, loadEnv, Modules } from "@medusajs/framework/utils";
 
 loadEnv(process.env.NODE_ENV || "development", process.cwd());
+
+import { REDIS_URL } from "src/lib/constants";
 
 module.exports = defineConfig({
   projectConfig: {
@@ -14,15 +16,43 @@ module.exports = defineConfig({
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     },
   },
-  plugins: [
-    {
-      resolve: `medusa-file-cloudinary`,
-      options: {
-        cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-        api_key: process.env.CLOUDINARY_API_KEY,
-        api_secret: process.env.CLOUDINARY_API_SECRET,
-        secure: true,
-      },
-    },
+  modules: [
+    // {
+    //   resolve: "@medusajs/medusa/file",
+    //   options: {
+    //     providers: [
+    //       {
+    //         resolve: "./src/modules/cloudinary",
+    //         id: "cloudinary",
+    //         options: {
+    //           cloud_name: CLOUDINARY_CLOUD_NAME,
+    //           api_key: CLOUDINARY_API_KEY,
+    //           api_secret: CLOUDINARY_API_SECRET,
+    //           secure: true,
+    //         },
+    //       },
+    //     ],
+    //   },
+    // },
+    ...(REDIS_URL
+      ? [
+          {
+            key: Modules.EVENT_BUS,
+            resolve: "@medusajs/event-bus-redis",
+            options: {
+              redisUrl: REDIS_URL,
+            },
+          },
+          {
+            key: Modules.WORKFLOW_ENGINE,
+            resolve: "@medusajs/workflow-engine-redis",
+            options: {
+              redis: {
+                url: REDIS_URL,
+              },
+            },
+          },
+        ]
+      : []),
   ],
 });
