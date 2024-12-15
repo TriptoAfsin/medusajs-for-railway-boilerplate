@@ -98,12 +98,5 @@ Rename `.env.local.template` ->  `.env.local`
 `yarn start` will serve the frontend web shop.
 
 
-<p align="center">
-  <a href="https://funkyton.com/">
-    A template by,
-    <br><br>
-    <picture>
-      <img alt="FUNKYTON logo" src="https://res-5.cloudinary.com/hczpmiapo/image/upload/q_auto/v1/ghost-blog-images/funkyton-logo.png" width=200>
-    </picture>
-  </a>
-</p>
+### Create Admin User
+`npx medusa user -e some@email.com -p somepassword`

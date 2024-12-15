@@ -1,5 +1,5 @@
 import { clx } from "@medusajs/ui"
-import React from "react"
+import React, { type JSX } from "react";
 import {
   UseHitsProps,
   useHits,
@@ -33,7 +33,10 @@ const Hits = ({
         }
       )}
     >
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+      <div
+        className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4"
+        data-testid="search-results"
+      >
         {hits.slice(0, 6).map((hit, index) => (
           <li
             key={index}

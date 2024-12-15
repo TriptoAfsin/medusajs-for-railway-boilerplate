@@ -46,4 +46,12 @@ node_modules
 .yarn
 .swc
 dump.rdb
-package-lock.json
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth

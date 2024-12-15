@@ -1,25 +1,24 @@
 "use client"
 
-import { Customer } from "@medusajs/medusa"
-import React, { useEffect } from "react"
+import React, { useEffect, useActionState } from "react";
 
 import Input from "@modules/common/components/input"
 
 import AccountInfo from "../account-info"
-import { updateCustomerPassword } from "@modules/account/actions"
-import { useFormState } from "react-dom"
+import { HttpTypes } from "@medusajs/types"
 
 type MyInformationProps = {
-  customer: Omit<Customer, "password_hash">
+  customer: HttpTypes.StoreCustomer
 }
 
 const ProfileName: React.FC<MyInformationProps> = ({ customer }) => {
   const [successState, setSuccessState] = React.useState(false)
 
-  const [state, formAction] = useFormState(updateCustomerPassword, {
+  // TODO: Add support for password updates
+  const [state, formAction] = useActionState((() => {}) as any, {
     customer,
     success: false,
-    error: false,
+    error: null,
   })
 
   const clearState = () => {
@@ -39,8 +38,9 @@ const ProfileName: React.FC<MyInformationProps> = ({ customer }) => {
         }
         isSuccess={successState}
         isError={!!state.error}
-        errorMessage={state.error}
+        errorMessage={state.error ?? undefined}
         clearState={clearState}
+        data-testid="account-password-editor"
       >
         <div className="grid grid-cols-2 gap-4">
           <Input
@@ -48,18 +48,21 @@ const ProfileName: React.FC<MyInformationProps> = ({ customer }) => {
             name="old_password"
             required
             type="password"
+            data-testid="old-password-input"
           />
           <Input
             label="New password"
             type="password"
             name="new_password"
             required
+            data-testid="new-password-input"
           />
           <Input
             label="Confirm password"
             type="password"
             name="confirm_password"
             required
+            data-testid="confirm-password-input"
           />
         </div>
       </AccountInfo>
